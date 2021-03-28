@@ -1,0 +1,21 @@
+#sw-container {
+  max-width: 75rem;
+}
+
+nav a:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  color: #f8f9fa !important;
+}
+
+.card {
+  max-width: 20rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  overflow: hidden;
+}
+
+.card img {
+  min-height: 100%;
+}
