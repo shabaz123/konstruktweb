@@ -1,0 +1,22 @@
+@keyframes pulse {
+   from {
+      transform: scale(1);
+      opacity: 1;
+   }
+   20% {
+      transform: scale(1.06);
+      opacity: 0.5;
+   }
+   50% {
+      transform: scale(1.08);
+      opacity: 0.3;
+   }
+   80% {
+      transform: scale(1.04);
+      opacity: 0.5;
+   }
+   to {
+      transform: scale(1);
+      opacity: 1;
+   }
+}

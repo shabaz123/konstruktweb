@@ -1,3 +1,59 @@
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+  20% {
+    -webkit-transform: scale(1.06);
+            transform: scale(1.06);
+    opacity: 0.5;
+  }
+  50% {
+    -webkit-transform: scale(1.08);
+            transform: scale(1.08);
+    opacity: 0.3;
+  }
+  80% {
+    -webkit-transform: scale(1.04);
+            transform: scale(1.04);
+    opacity: 0.5;
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  from {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+  20% {
+    -webkit-transform: scale(1.06);
+            transform: scale(1.06);
+    opacity: 0.5;
+  }
+  50% {
+    -webkit-transform: scale(1.08);
+            transform: scale(1.08);
+    opacity: 0.3;
+  }
+  80% {
+    -webkit-transform: scale(1.04);
+            transform: scale(1.04);
+    opacity: 0.5;
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+
 #sw-container {
   max-width: 75rem;
 }
@@ -19,4 +75,9 @@ nav a:hover {
 .card img {
   min-height: 100%;
   max-height: 30vh;
+}
+
+.card:hover {
+  -webkit-animation: pulse 0.5s;
+          animation: pulse 0.5s;
 }
