@@ -80,4 +80,5 @@ nav a:hover {
 .card:hover {
   -webkit-animation: pulse 0.5s;
           animation: pulse 0.5s;
+  cursor: pointer;
 }
