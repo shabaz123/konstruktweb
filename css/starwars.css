@@ -80,4 +80,15 @@ nav a:hover {
 .card:hover {
   -webkit-animation: pulse 0.5s;
           animation: pulse 0.5s;
+  cursor: pointer;
+}
+
+#results-section {
+  display: none;
+  padding: 10%;
+  text-align: start;
+}
+
+#results-section .heading {
+  color: tomato;
 }
