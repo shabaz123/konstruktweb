@@ -26,3 +26,12 @@ nav {
       cursor: pointer;
    }
 }
+
+#results-section {
+   display: none;
+   padding: 10%;
+   text-align: start;
+   .heading {
+      color: tomato;
+   }
+}
