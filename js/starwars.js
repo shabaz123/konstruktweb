@@ -19,7 +19,7 @@ const swPlanet = document.querySelector("#planets");
 swPlanet.addEventListener("click", newPlanet);
 
 function newPlanet() {
-   fetch("https://swapi.dev/api/planets")
+   fetch("https://swapi.dev/api/planets/")
       .then((response) => {
          if (!response.ok) {
             throw "Problem with the API destination!";
@@ -31,7 +31,7 @@ function newPlanet() {
          console.log(`Total available planets: ${count}`);
          const randomPlanet = Math.floor(Math.random() * count) + 1;
          console.log(`Details for planet number: ${randomPlanet}`);
-         fetch(`https://swapi.dev/api/planets/${randomPlanet}`)
+         fetch(`https://swapi.dev/api/planets/${randomPlanet}/`)
             .then((response) => response.json())
             .then((aPlanet) => {
                console.log(aPlanet);
