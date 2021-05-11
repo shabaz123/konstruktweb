@@ -92,3 +92,7 @@ nav a:hover {
 #results-section .heading {
   color: tomato;
 }
+
+.thinking {
+  opacity: 0.2;
+}
