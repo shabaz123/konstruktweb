@@ -317,6 +317,8 @@ async function newPerson() {
       speciesName = species.data.name;
    }
 
+   // NEED TO FIX THE CORS ERROR - the species and homeworld URLs are http not https
+
    // Populate the the heading
    thing.textContent = "Person";
    thingNumber.textContent = randomPerson;
