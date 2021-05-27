@@ -18,6 +18,7 @@ function stopListening() {
    newThing.removeEventListener("click", newPlanet);
    newThing.removeEventListener("click", newSpaceship);
    newThing.removeEventListener("click", newVehicle);
+   newThing.removeEventListener("click", newPerson);
 }
 // Function to check the response from an API call and then parse it into JSON if OK
 function resErrOrParse(response) {
@@ -28,6 +29,8 @@ function resErrOrParse(response) {
 }
 
 let count = 0;
+let page = 1;
+let index = 0;
 
 // Select the results section heading fields
 const thing = document.querySelector("#thing");
@@ -270,11 +273,90 @@ function newVehicle() {
       });
 }
 
-// REST OF THE CATEGORIES:
+// PEOPLE
 const swPeople = document
    .querySelector("#people")
-   .addEventListener("click", () => alert("You clicked the PEOPLE category!"));
+   .addEventListener("click", newPerson);
 
+async function newPerson() {
+   resultsSection.classList.add("thinking");
+   let randomPerson = 0;
+   // Load people page to find the total number of people
+   const people = await axios.get("https://swapi.dev/api/people/");
+   count = people.data.count;
+   // and pick a random person
+   randomPerson = Math.floor(Math.random() * count) + 1;
+   console.log("-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/");
+   console.log(
+      `Display details for person number ${randomPerson} out of ${count} people`
+   );
+   index = randomPerson % 10 === 0 ? 9 : (randomPerson % 10) - 1;
+   page =
+      index === 9
+         ? randomPerson / 10
+         : (randomPerson - (randomPerson % 10)) / 10 + 1;
+   console.log(`Person data is on page ${page} at index number ${index}`);
+   // Load the person data
+   const findPerson = await axios.get(
+      `https://swapi.dev/api/people/?page=${page}`
+   );
+   let aPerson = findPerson.data.results[index];
+   console.log(aPerson);
+   // Load the homeworld name
+   let homeName;
+   if (aPerson.homeworld) {
+      const home = await axios.get(aPerson.homeworld);
+      console.log(home);
+      homeName = home.data.name;
+   }
+   // Load the species name
+   let speciesName;
+   if (aPerson.species[0]) {
+      const species = await axios.get(aPerson.species[0]);
+      console.log(species);
+      speciesName = species.data.name;
+   }
+
+   // Populate the the heading
+   thing.textContent = "Person";
+   thingNumber.textContent = randomPerson;
+   totalThings.textContent = count;
+   // Populate the New Thing button
+   stopListening();
+   newThing.textContent = "New Person";
+   newThing.addEventListener("click", newPerson);
+   // populate the results table
+   // ONE
+   headingOne.textContent = "Name: ";
+   valueOne.textContent = `${aPerson.name}`;
+   // TWO
+   headingTwo.textContent = "Homeworld: ";
+   valueTwo.textContent = homeName;
+   // THREE
+   headingThree.textContent = "Species: ";
+   valueThree.textContent = speciesName;
+   // FOUR
+   headingFour.textContent = "Birth Year: ";
+   valueFour.textContent = `${aPerson.birth_year}`;
+   // FIVE
+   headingFive.textContent = "Mass: ";
+   valueFive.textContent = `${aPerson.mass} kg`;
+   // SIX
+   headingSix.textContent = "Gender: ";
+   valueSix.textContent = `${aPerson.gender}`;
+   // SEVEN
+   headingSeven.textContent = "Hair Colour: ";
+   valueSeven.textContent = `${aPerson.hair_color}`;
+   // EIGHT
+   headingEight.textContent = "Skin Colour: ";
+   valueEight.textContent = `${aPerson.skin_color}`;
+   // NINE
+   headingNine.textContent = "Eye Colour: ";
+   valueNine.textContent = `${aPerson.eye_color}`;
+   resultsSection.classList.remove("thinking");
+}
+
+// REST OF THE CATEGORIES:
 const swFilms = document
    .querySelector("#films")
    .addEventListener("click", () => alert("You clicked the FILMS category!"));
