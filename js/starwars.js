@@ -27,6 +27,12 @@ function resErrOrParse(response) {
    }
    return response.json();
 }
+// Function to modify URLs to HTTPS and fix mixed content error
+function fixMixed(url) {
+   const arr = url.split("");
+   arr.splice(4, 0, "s");
+   return arr.join("");
+}
 
 let count = 0;
 let page = 1;
@@ -286,16 +292,14 @@ async function newPerson() {
    count = people.data.count;
    // and pick a random person
    randomPerson = Math.floor(Math.random() * count) + 1;
-   console.log("-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/");
-   console.log(
-      `Display details for person number ${randomPerson} out of ${count} people`
-   );
+   console.log("-/-/-/-/-/-/-/-/-");
+   console.log(`Display person ${randomPerson} out of ${count}`);
    index = randomPerson % 10 === 0 ? 9 : (randomPerson % 10) - 1;
    page =
       index === 9
          ? randomPerson / 10
          : (randomPerson - (randomPerson % 10)) / 10 + 1;
-   console.log(`Person data is on page ${page} at index number ${index}`);
+   console.log(`Data on page ${page} / index ${index}`);
    // Load the person data
    const findPerson = await axios.get(
       `https://swapi.dev/api/people/?page=${page}`
@@ -305,18 +309,17 @@ async function newPerson() {
    // Load the homeworld name
    let homeName;
    if (aPerson.homeworld) {
-      const home = await axios.get(aPerson.homeworld);
-      console.log(home);
+      const newURL = fixMixed(aPerson.homeworld);
+      const home = await axios.get(newURL);
       homeName = home.data.name;
    }
    // Load the species name
    let speciesName;
    if (aPerson.species[0]) {
-      const species = await axios.get(aPerson.species[0]);
-      console.log(species);
+      const newURL = fixMixed(aPerson.species[0]);
+      const species = await axios.get(newURL);
       speciesName = species.data.name;
    }
-
    // Populate the the heading
    thing.textContent = "Person";
    thingNumber.textContent = randomPerson;
@@ -328,7 +331,7 @@ async function newPerson() {
    // populate the results table
    // ONE
    headingOne.textContent = "Name: ";
-   valueOne.textContent = `${aPerson.name}`;
+   valueOne.textContent = aPerson.name;
    // TWO
    headingTwo.textContent = "Homeworld: ";
    valueTwo.textContent = homeName;
@@ -337,22 +340,22 @@ async function newPerson() {
    valueThree.textContent = speciesName;
    // FOUR
    headingFour.textContent = "Birth Year: ";
-   valueFour.textContent = `${aPerson.birth_year}`;
+   valueFour.textContent = aPerson.birth_year;
    // FIVE
    headingFive.textContent = "Mass: ";
    valueFive.textContent = `${aPerson.mass} kg`;
    // SIX
    headingSix.textContent = "Gender: ";
-   valueSix.textContent = `${aPerson.gender}`;
+   valueSix.textContent = aPerson.gender;
    // SEVEN
    headingSeven.textContent = "Hair Colour: ";
-   valueSeven.textContent = `${aPerson.hair_color}`;
+   valueSeven.textContent = aPerson.hair_color;
    // EIGHT
    headingEight.textContent = "Skin Colour: ";
-   valueEight.textContent = `${aPerson.skin_color}`;
+   valueEight.textContent = aPerson.skin_color;
    // NINE
    headingNine.textContent = "Eye Colour: ";
-   valueNine.textContent = `${aPerson.eye_color}`;
+   valueNine.textContent = aPerson.eye_color;
    resultsSection.classList.remove("thinking");
 }
 
