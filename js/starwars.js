@@ -108,25 +108,25 @@ function newPlanet() {
          // populate the results table
          // ONE
          headingOne.textContent = "Name: ";
-         valueOne.textContent = `${aPlanet.name}`;
+         valueOne.textContent = aPlanet.name;
          // TWO
          headingTwo.textContent = "Climate: ";
-         valueTwo.textContent = `${aPlanet.climate}`;
+         valueTwo.textContent = aPlanet.climate;
          // THREE
          headingThree.textContent = "Surface Water: ";
          valueThree.textContent = `${aPlanet.surface_water} %`;
          // FOUR
          headingFour.textContent = "Gravity: ";
-         valueFour.textContent = `${aPlanet.gravity}`;
+         valueFour.textContent = aPlanet.gravity;
          // FIVE
          headingFive.textContent = "Diameter: ";
          valueFive.textContent = `${aPlanet.diameter} km`;
          // SIX
          headingSix.textContent = "Terrain: ";
-         valueSix.textContent = `${aPlanet.terrain}`;
+         valueSix.textContent = aPlanet.terrain;
          // SEVEN
          headingSeven.textContent = "Population: ";
-         valueSeven.textContent = `${aPlanet.population}`;
+         valueSeven.textContent = aPlanet.population;
          // EIGHT
          headingEight.textContent = "Orbital Period: ";
          valueEight.textContent = `${aPlanet.orbital_period} days`;
@@ -178,16 +178,16 @@ function newSpaceship() {
          // populate the results table
          // ONE
          headingOne.textContent = "Name: ";
-         valueOne.textContent = `${aSpaceship.name}`;
+         valueOne.textContent = aSpaceship.name;
          // TWO
          headingTwo.textContent = "Starship Class: ";
-         valueTwo.textContent = `${aSpaceship.starship_class}`;
+         valueTwo.textContent = aSpaceship.starship_class;
          // THREE
          headingThree.textContent = "Model: ";
-         valueThree.textContent = `${aSpaceship.model}`;
+         valueThree.textContent = aSpaceship.model;
          // FOUR
          headingFour.textContent = "Passengers: ";
-         valueFour.textContent = `${aSpaceship.passengers}`;
+         valueFour.textContent = aSpaceship.passengers;
          // FIVE
          headingFive.textContent = "Length: ";
          valueFive.textContent = `${aSpaceship.length} m`;
@@ -199,7 +199,7 @@ function newSpaceship() {
          valueSeven.textContent = `${aSpaceship.MGLT} Megalights`;
          // EIGHT
          headingEight.textContent = "Hyperdrive Rating: ";
-         valueEight.textContent = `${aSpaceship.hyperdrive_rating}`;
+         valueEight.textContent = aSpaceship.hyperdrive_rating;
          // NINE
          headingNine.textContent = "Cost: ";
          valueNine.textContent = `${aSpaceship.cost_in_credits} credits`;
@@ -247,19 +247,19 @@ function newVehicle() {
          // populate the results table
          // ONE
          headingOne.textContent = "Name: ";
-         valueOne.textContent = `${aVehicle.name}`;
+         valueOne.textContent = aVehicle.name;
          // TWO
          headingTwo.textContent = "Manufacturer: ";
-         valueTwo.textContent = `${aVehicle.manufacturer}`;
+         valueTwo.textContent = aVehicle.manufacturer;
          // THREE
          headingThree.textContent = "Model: ";
-         valueThree.textContent = `${aVehicle.model}`;
+         valueThree.textContent = aVehicle.model;
          // FOUR
          headingFour.textContent = "Crew: ";
-         valueFour.textContent = `${aVehicle.crew}`;
+         valueFour.textContent = aVehicle.crew;
          // FIVE
          headingFive.textContent = "Passengers: ";
-         valueFive.textContent = `${aVehicle.passengers}`;
+         valueFive.textContent = aVehicle.passengers;
          // SIX
          headingSix.textContent = "Cargo Capacity: ";
          valueSix.textContent = `${aVehicle.cargo_capacity} kg`;
