@@ -84,9 +84,9 @@ function newPlanet() {
       .then(resErrOrParse)
       .then((planets) => {
          count = planets.count;
-         console.log(`Total available planets: ${count}`);
          randomPlanet = Math.floor(Math.random() * count) + 1;
-         console.log(`Details for planet number: ${randomPlanet}`);
+         console.log("-/-/-/-/-/-/-/-/-");
+         console.log(`Display planet ${randomPlanet} out of ${count}`);
          // If you return the next fetch you don't have to nest the .then() that follows it, you can chain the next then() instead of indenting it
          return fetch(`https://swapi.dev/api/planets/${randomPlanet}/`);
       })
@@ -153,20 +153,26 @@ function newSpaceship() {
       .then(resErrOrParse)
       .then((spaceships) => {
          count = spaceships.count;
-         console.log(`Total available spaceships: ${count}`);
-         // const randomSpaceship = Math.floor(Math.random() * count) + 1;
-         // Temporary fix because spaceship IDs are not sequential
-         randomSpaceship = Math.floor(Math.random() * 75) + 1;
-         console.log(`Details for spaceship number: ${randomSpaceship}`);
-         return fetch(`https://swapi.dev/api/starships/${randomSpaceship}/`);
+         randomSpaceship = Math.floor(Math.random() * count) + 1;
+         console.log("-/-/-/-/-/-/-/-/-");
+         console.log(`Display spaceship ${randomSpaceship} out of ${count}`);
+         index = randomSpaceship % 10 === 0 ? 9 : (randomSpaceship % 10) - 1;
+         page =
+            index === 9
+               ? randomSpaceship / 10
+               : (randomSpaceship - (randomSpaceship % 10)) / 10 + 1;
+         console.log(`Data on page ${page} / index ${index}`);
+         // Load the spaceship data
+         return fetch(`https://swapi.dev/api/starships/?page=${page}`);
       })
       .then((response) => {
          if (!response.ok) {
             newSpaceship();
          } else return response.json();
       })
-      .then((aSpaceship) => {
-         console.log(aSpaceship);
+      .then((resultsPage) => {
+         console.log(resultsPage);
+         const aSpaceship = resultsPage.results[index];
          // Populate the the heading
          thing.textContent = "Spaceship";
          thingNumber.textContent = randomSpaceship;
@@ -222,20 +228,27 @@ function newVehicle() {
       .then(resErrOrParse)
       .then((vehicles) => {
          count = vehicles.count;
-         console.log(`Total available vehicles: ${count}`);
-         // const randomSpaceship = Math.floor(Math.random() * count) + 1;
-         // Temporary fix because spaceship IDs are not sequential
-         randomVehicle = Math.floor(Math.random() * 76) + 1;
-         console.log(`Details for vehicle number: ${randomVehicle}`);
-         return fetch(`https://swapi.dev/api/vehicles/${randomVehicle}/`);
+         randomVehicle = Math.floor(Math.random() * count) + 1;
+         console.log("-/-/-/-/-/-/-/-/-");
+         console.log(`Display vehicle ${randomVehicle} out of ${count}`);
+
+         index = randomVehicle % 10 === 0 ? 9 : (randomVehicle % 10) - 1;
+         page =
+            index === 9
+               ? randomVehicle / 10
+               : (randomVehicle - (randomVehicle % 10)) / 10 + 1;
+         console.log(`Data on page ${page} / index ${index}`);
+         // Load the spaceship data
+         return fetch(`https://swapi.dev/api/vehicles/?page=${page}`);
       })
       .then((response) => {
          if (!response.ok) {
             newVehicle();
          } else return response.json();
       })
-      .then((aVehicle) => {
-         console.log(aVehicle);
+      .then((resultsPage) => {
+         console.log(resultsPage);
+         const aVehicle = resultsPage.results[index];
          // Populate the the heading
          thing.textContent = "Vehicle";
          thingNumber.textContent = randomVehicle;
@@ -304,8 +317,8 @@ async function newPerson() {
    const findPerson = await axios.get(
       `https://swapi.dev/api/people/?page=${page}`
    );
+   console.log(findPerson);
    let aPerson = findPerson.data.results[index];
-   console.log(aPerson);
    // Load the homeworld name
    let homeName;
    if (aPerson.homeworld) {
