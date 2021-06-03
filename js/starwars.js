@@ -20,7 +20,7 @@ function stopListening() {
    newThing.removeEventListener("click", newVehicle);
    newThing.removeEventListener("click", newPerson);
    newThing.removeEventListener("click", newFilm);
-   // newThing.removeEventListener("click", newSpecies);
+   newThing.removeEventListener("click", newSpecies);
 }
 // Function to check the response from an API call and then parse it into JSON if OK
 function resErrOrParse(response) {
@@ -126,13 +126,20 @@ function newPlanet() {
          // SIX
          headingSix.textContent = "Terrain: ";
          valueSix.textContent = aPlanet.terrain;
+         valueSix.classList.remove("boost");
          // SEVEN
+         headingSeven.style.display = "initial";
+         valueSeven.style.display = "initial";
          headingSeven.textContent = "Population: ";
          valueSeven.textContent = aPlanet.population;
          // EIGHT
+         headingEight.style.display = "initial";
+         valueEight.style.display = "initial";
          headingEight.textContent = "Orbital Period: ";
          valueEight.textContent = `${aPlanet.orbital_period} days`;
          // NINE
+         headingNine.style.display = "initial";
+         valueNine.style.display = "initial";
          headingNine.textContent = "Rotation Period: ";
          valueNine.textContent = `${aPlanet.rotation_period} days`;
          // Reveal results
@@ -202,13 +209,20 @@ function newSpaceship() {
          // SIX
          headingSix.textContent = "Cargo Capacity: ";
          valueSix.textContent = `${aSpaceship.cargo_capacity} kg`;
+         valueSix.classList.remove("boost");
          // SEVEN
+         headingSeven.style.display = "initial";
+         valueSeven.style.display = "initial";
          headingSeven.textContent = "MGLT: ";
          valueSeven.textContent = `${aSpaceship.MGLT} Megalights`;
          // EIGHT
+         headingEight.style.display = "initial";
+         valueEight.style.display = "initial";
          headingEight.textContent = "Hyperdrive Rating: ";
          valueEight.textContent = aSpaceship.hyperdrive_rating;
          // NINE
+         headingNine.style.display = "initial";
+         valueNine.style.display = "initial";
          headingNine.textContent = "Cost: ";
          valueNine.textContent = `${aSpaceship.cost_in_credits} credits`;
          resultsSection.classList.remove("thinking");
@@ -278,13 +292,20 @@ function newVehicle() {
          // SIX
          headingSix.textContent = "Cargo Capacity: ";
          valueSix.textContent = `${aVehicle.cargo_capacity} kg`;
+         valueSix.classList.remove("boost");
          // SEVEN
+         headingSeven.style.display = "initial";
+         valueSeven.style.display = "initial";
          headingSeven.textContent = "Max Atmosphering Speed: ";
          valueSeven.textContent = `${aVehicle.max_atmosphering_speed} kmh`;
          // EIGHT
+         headingEight.style.display = "initial";
+         valueEight.style.display = "initial";
          headingEight.textContent = "Length: ";
          valueEight.textContent = `${aVehicle.length} m`;
          // NINE
+         headingNine.style.display = "initial";
+         valueNine.style.display = "initial";
          headingNine.textContent = "Cost: ";
          valueNine.textContent = `${aVehicle.cost_in_credits} credits`;
          resultsSection.classList.remove("thinking");
@@ -363,13 +384,20 @@ async function newPerson() {
       // SIX
       headingSix.textContent = "Gender: ";
       valueSix.textContent = aPerson.gender;
+      valueSix.classList.remove("boost");
       // SEVEN
+      headingSeven.style.display = "initial";
+      valueSeven.style.display = "initial";
       headingSeven.textContent = "Hair Colour: ";
       valueSeven.textContent = aPerson.hair_color;
       // EIGHT
+      headingEight.style.display = "initial";
+      valueEight.style.display = "initial";
       headingEight.textContent = "Skin Colour: ";
       valueEight.textContent = aPerson.skin_color;
       // NINE
+      headingNine.style.display = "initial";
+      valueNine.style.display = "initial";
       headingNine.textContent = "Eye Colour: ";
       valueNine.textContent = aPerson.eye_color;
       resultsSection.classList.remove("thinking");
@@ -406,22 +434,6 @@ async function newFilm() {
       );
       console.log(findFilm);
       let aFilm = findFilm.data.results[index];
-
-      // Load the homeworld name
-      // let homeName;
-      // if (aPerson.homeworld) {
-      //    const newURL = fixMixed(aPerson.homeworld);
-      //    const home = await axios.get(newURL);
-      //    homeName = home.data.name;
-      // }
-      // Load the species name
-      // let speciesName;
-      // if (aPerson.species[0]) {
-      //    const newURL = fixMixed(aPerson.species[0]);
-      //    const species = await axios.get(newURL);
-      //    speciesName = species.data.name;
-      // }
-
       // Populate the the heading
       thing.textContent = "Film";
       thingNumber.textContent = randomFilm;
@@ -449,8 +461,7 @@ async function newFilm() {
       // SIX
       headingSix.textContent = "Opening Crawl: ";
       valueSix.innerHTML = `<br> ${aFilm.opening_crawl}`;
-      valueSix.style.fontSize = "1.5rem";
-      valueSix.style.lineHeight = "3rem";
+      valueSix.classList.add("boost");
       // SEVEN
       headingSeven.style.display = "none";
       valueSeven.style.display = "none";
@@ -467,7 +478,86 @@ async function newFilm() {
 }
 
 // SPECIES
-
 const swSpecies = document
    .querySelector("#species")
-   .addEventListener("click", () => alert("You clicked the SPECIES category!"));
+   .addEventListener("click", newSpecies);
+
+async function newSpecies() {
+   try {
+      resultsSection.classList.add("thinking");
+      let randomSpecies = 0;
+      // Load species page to find the total number of species
+      const species = await axios.get("https://swapi.dev/api/species/");
+      count = species.data.count;
+      // and pick a random species
+      randomSpecies = Math.floor(Math.random() * count) + 1;
+      console.log("-/-/-/-/-/-/-/-/-");
+      console.log(`Display species ${randomSpecies} out of ${count}`);
+      index = randomSpecies % 10 === 0 ? 9 : (randomSpecies % 10) - 1;
+      page =
+         index === 9
+            ? randomSpecies / 10
+            : (randomSpecies - (randomSpecies % 10)) / 10 + 1;
+      console.log(`Data on page ${page} / index ${index}`);
+      // Load the species data
+      const findSpecies = await axios.get(
+         `https://swapi.dev/api/species/?page=${page}`
+      );
+      console.log(findSpecies);
+      let aSpecies = findSpecies.data.results[index];
+      // Load the homeworld name
+      let homeName;
+      if (aSpecies.homeworld) {
+         const newURL = fixMixed(aSpecies.homeworld);
+         const home = await axios.get(newURL);
+         homeName = home.data.name;
+      }
+      // Populate the the heading
+      thing.textContent = "Species";
+      thingNumber.textContent = randomSpecies;
+      totalThings.textContent = count;
+      // Populate the New Thing button
+      stopListening();
+      newThing.textContent = "New Species";
+      newThing.addEventListener("click", newSpecies);
+      // populate the results table
+      // ONE
+      headingOne.textContent = "Name: ";
+      valueOne.textContent = aSpecies.name;
+      // TWO
+      headingTwo.textContent = "Classification: ";
+      valueTwo.textContent = aSpecies.classification;
+      // THREE
+      headingThree.textContent = "Designation: ";
+      valueThree.textContent = aSpecies.designation;
+      // FOUR
+      headingFour.textContent = "Homeworld: ";
+      valueFour.textContent = homeName;
+      // FIVE
+      headingFive.textContent = "Language: ";
+      valueFive.textContent = aSpecies.language;
+      // SIX
+      headingSix.textContent = "Average Lifespan: ";
+      valueSix.textContent = `${aSpecies.average_lifespan} years`;
+      valueSix.classList.remove("boost");
+      // SEVEN
+      headingSeven.style.display = "initial";
+      valueSeven.style.display = "initial";
+      headingSeven.textContent = "Average Height: ";
+      valueSeven.textContent = `${aSpecies.average_height} cm`;
+
+      // EIGHT
+      headingEight.style.display = "initial";
+      valueEight.style.display = "initial";
+      headingEight.textContent = "Eye Colours: ";
+      valueEight.textContent = aSpecies.eye_colors;
+      // NINE
+      headingNine.style.display = "initial";
+      valueNine.style.display = "initial";
+      headingNine.textContent = "Skin Colours: ";
+      valueNine.textContent = aSpecies.skin_colors;
+      resultsSection.classList.remove("thinking");
+   } catch (error) {
+      console.log("This error occured when retrieving a species:", error);
+   }
+}
