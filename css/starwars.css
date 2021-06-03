@@ -96,3 +96,8 @@ nav a:hover {
 .thinking {
   opacity: 0.2;
 }
+
+.boost {
+  font-size: 1.5rem;
+  line-height: 3rem;
+}
